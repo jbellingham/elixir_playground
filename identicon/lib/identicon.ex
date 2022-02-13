@@ -1,6 +1,6 @@
 defmodule Identicon do
   @moduledoc """
-  Documentation for `Identicon`.
+  Provides a method for generating an identicon image based on a string input
   """
 
   def main(input) do
@@ -15,8 +15,9 @@ defmodule Identicon do
   end
 
   def hash_input(input) do
-    hex = :crypto.hash(:md5, input)
-    |> :binary.bin_to_list
+    hex =
+      :crypto.hash(:md5, input)
+      |> :binary.bin_to_list
 
     %Identicon.Image { hex: hex }
   end
@@ -49,7 +50,7 @@ defmodule Identicon do
   end
 
   def filter_odd_squares(%Identicon.Image { grid: grid } = image) do
-    grid = Enum.filter grid, fn({rgb, _index}) ->
+    grid = Enum.filter grid, fn({ rgb, _index }) ->
       rem(rgb, 2) == 0
     end
 
@@ -57,14 +58,14 @@ defmodule Identicon do
   end
 
   def build_pixel_map(%Identicon.Image { grid: grid } = image) do
-    pixel_map = Enum.map grid, fn({_rgb, index}) ->
+    pixel_map = Enum.map grid, fn({ _rgb, index }) ->
       horizontal = rem(index, 5) * 50
       vertical = div(index, 5) * 50
 
       top_left = { horizontal, vertical }
       bottom_right = { horizontal + 50, vertical + 50 }
 
-      {top_left, bottom_right}
+      { top_left, bottom_right }
     end
 
     %Identicon.Image { image | pixel_map: pixel_map }
@@ -72,7 +73,7 @@ defmodule Identicon do
 
   # We do not need to provide an underscore prepended variable to represent
   # pattern matched items we don't care about when pattern matching in a function declaration
-  def draw_image(%Identicon.Image { color: color, pixel_map: pixel_map}) do
+  def draw_image(%Identicon.Image { color: color, pixel_map: pixel_map }) do
     image = :egd.create(250, 250)
     fill = :egd.color(color)
 
