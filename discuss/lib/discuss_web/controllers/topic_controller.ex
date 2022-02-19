@@ -1,6 +1,6 @@
 defmodule DiscussWeb.TopicController do
   use DiscussWeb, :controller
-  alias Discuss.Topic
+  alias Discuss.Models.Topic
   alias Discuss.Repo
 
   def index(conn, _params) do

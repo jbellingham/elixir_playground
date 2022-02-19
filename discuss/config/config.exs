@@ -57,5 +57,5 @@ config :ueberauth, Ueberauth,
   ]
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: "",
-  client_secret: ""
+  client_id: System.get_env("GITHUB_CLIENTID"),
+  client_secret: System.get_env("GITHUB_SECRET")
