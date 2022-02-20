@@ -4,6 +4,8 @@ defmodule Discuss.Models.Topic do
 
   schema "topics" do
     field :title, :string
+    belongs_to :user, Discuss.Models.User
+    has_many :comments, Discuss.Models.Comment
   end
 
   @doc false

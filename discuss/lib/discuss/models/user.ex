@@ -7,6 +7,10 @@ defmodule Discuss.Models.User do
     field :provider, :string
     field :token, :string
 
+    # Modeling a one-many relationship
+    has_many :topics, Discuss.Models.Topic
+    has_many :comments, Discuss.Models.Comment
+
     timestamps()
   end
 
